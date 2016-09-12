@@ -1,0 +1,3 @@
+-cp test
+-main TestMain
+-lib utest

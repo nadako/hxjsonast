@@ -1,0 +1,5 @@
+{
+    "haxe.displayConfigurations": [
+        ["-cp", "src", "tests.hxml", "-js", "test.js"]
+    ]
+}
