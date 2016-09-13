@@ -25,4 +25,5 @@ script:
   # - haxelib run travix cs
   # - haxelib run travix cpp
   # - haxelib run travix flash -D exit
+  - haxe doc.hxml
   - bash doc-deploy.sh
