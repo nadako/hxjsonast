@@ -179,7 +179,7 @@ class Parser {
                         buf.addChar(uc);
                         #end
                     default:
-                        throw "Invalid escape sequence \\" + String.fromCharCode(c) + " at position " + (pos - 1);
+                        throw new Error("Invalid escape sequence \\" + String.fromCharCode(c), mkPos(pos - 2, pos));
                 }
                 start = pos;
             }
@@ -193,8 +193,10 @@ class Parser {
                 else if (c >= 0xE0) pos++;
             }
             #end
-            else if (StringTools.isEof(c))
-                throw "Unclosed string";
+            else if (StringTools.isEof(c)) {
+                pos--;
+                throw new Error("Unclosed string", mkPos(start - 1, pos));
+            }
         }
         if (buf == null) {
             return source.substr(start, pos - start - 1);
@@ -267,10 +269,10 @@ class Parser {
 
     function invalidChar() {
         pos--; // rewind
-        throw "Invalid char " + StringTools.fastCodeAt(source, pos) + " at position " + pos;
+        throw new Error("Invalid character: " + source.charAt(pos), mkPos(pos, pos + 1));
     }
 
     function invalidNumber(start:Int) {
-        throw "Invalid number at position " + start + ": " + source.substr(start, pos - start);
+        throw new Error("Invalid number: " + source.substring(start, pos), mkPos(start, pos));
     }
 }

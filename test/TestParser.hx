@@ -49,6 +49,9 @@ class TestParser {
             pos: {file: file, min: 0, max: 8},
             value: JString("\u1234")
         });
+
+        checkError('"adad', "Unclosed string", 0, 5);
+        checkError('"\\m"', "Invalid escape sequence \\m", 1, 3);
     }
 
     public function test_number() {
@@ -63,6 +66,11 @@ class TestParser {
             c(s);
             c('-$s');
         }
+
+        // TODO: more tests
+        checkError("1-", "Invalid number: 1-", 0, 2);
+        checkError(" 00", "Invalid number: 00", 1, 3);
+        checkError("1.a", "Invalid number: 1.a", 0, 3);
     }
 
     public function test_literals() {
@@ -78,6 +86,20 @@ class TestParser {
             pos: {file: file, min: 0, max: 4},
             value: JNull
         });
+
+        checkError("a", "Invalid character: a", 0, 1);
+        checkError("ta", "Invalid character: t", 0, 1);
+        checkError("tra", "Invalid character: t", 0, 1);
+        checkError("trua", "Invalid character: t", 0, 1);
+        // checkError("truea", "Invalid character: t", 0, 1);
+        checkError("fa", "Invalid character: f", 0, 1);
+        checkError("fala", "Invalid character: f", 0, 1);
+        checkError("falsa", "Invalid character: f", 0, 1);
+        // checkError("falsea", "Invalid character: f", 0, 1);
+        checkError("na", "Invalid character: n", 0, 1);
+        checkError("nua", "Invalid character: n", 0, 1);
+        checkError("nula", "Invalid character: n", 0, 1);
+        // checkError("nulla", "Invalid character: n", 0, 1);
     }
 
     public function test_object() {
@@ -107,6 +129,11 @@ class TestParser {
                 }
             ])
         });
+
+        checkError('{"a" }', "Invalid character: }", 5, 6);
+        checkError('{"a": 1,}', "Invalid character: }", 8, 9);
+        checkError('{:', "Invalid character: :", 1, 2);
+        checkError('{3', "Invalid character: 3", 1, 2);
     }
 
     public function test_array() {
@@ -132,6 +159,10 @@ class TestParser {
                 },
             ])
         });
+
+        checkError('[1,]', "Invalid character: ]", 3, 4);
+        checkError('[,', "Invalid character: ,", 1, 2);
+        checkError('[1 2', "Invalid character: 2", 3, 4);
     }
 
     static macro function check(source, expr) {
@@ -139,5 +170,16 @@ class TestParser {
             var file = "some.json";
             same(($expr : Json), Parser.parse($source, file));
         };
+    }
+
+    static function checkError(source:String, message:String, min:Int, max:Int, ?posInfos:haxe.PosInfos) {
+        try {
+            trace(Parser.parse(source, ""));
+        } catch (error:hxjson.Error) {
+            equals(message, error.message, posInfos);
+            same(({file: "", min: min, max: max} : Position), error.pos, posInfos);
+            return;
+        }
+        fail("Parse Error is not raised", posInfos);
     }
 }
