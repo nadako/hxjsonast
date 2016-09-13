@@ -1,0 +1,9 @@
+-cp src
+--macro include("", true, null, ["src"])
+-D doc-gen
+-js out.js
+--no-output
+-xml bin/doc/js.xml
+
+--next
+-cmd haxelib run dox -i bin/doc -o bin/doc -in "^hxjson*" --title "hxjson - API documentation" -D source-path https://github.com/nadako/hxjson/blob/master/src/ -D website "https://github.com/nadako/hxjson"
