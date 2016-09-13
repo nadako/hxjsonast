@@ -11,6 +11,7 @@ haxe:
   - development
   
 install:
+  - haxelib install dox
   - haxelib install travix
   - haxelib run travix install
 
