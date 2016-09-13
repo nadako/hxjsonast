@@ -1,1 +1,4 @@
-/bin
+/bin/*
+!/bin/js
+/bin/js/*
+!/bin/js/index.html
