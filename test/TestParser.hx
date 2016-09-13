@@ -168,7 +168,7 @@ class TestParser {
     }
 
     static macro function check(source, expr) {
-        return macro {
+        return macro @:pos(haxe.macro.Context.currentPos()) {
             var file = "some.json";
             same(($expr : Json), Parser.parse($source, file));
         };
