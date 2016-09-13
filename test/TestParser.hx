@@ -130,6 +130,8 @@ class TestParser {
             ])
         });
 
+        checkError('{"a": 1, "a": 1}', "Duplicate field name \"a\"", 9, 12);
+
         checkError('{"a" }', "Invalid character: }", 5, 6);
         checkError('{"a": 1,}', "Invalid character: }", 8, 9);
         checkError('{:', "Invalid character: :", 1, 2);

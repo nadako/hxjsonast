@@ -35,6 +35,7 @@ class Parser {
                     // loop
                 case '{'.code:
                     var fields = new Array<JObjectField>();
+                    var names = new haxe.ds.StringMap();
                     var field = null;
                     var fieldPos = null;
                     var comma:Null<Bool> = null;
@@ -69,6 +70,10 @@ class Parser {
                                 var fieldStartPos = pos - 1;
                                 field = parseString();
                                 fieldPos = mkPos(fieldStartPos, pos);
+                                if (names.exists(field))
+                                    throw new Error('Duplicate field name "$field"', fieldPos);
+                                else
+                                    names.set(field, true);
                             default:
                                 invalidChar();
                         }
