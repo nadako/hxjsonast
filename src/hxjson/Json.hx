@@ -6,14 +6,19 @@ package hxjson;
 @:structInit
 class Json {
     /**
+        Actual data of this JSON value.
+    **/
+    public var value:JsonValue;
+
+    /**
         Position of this value in the JSON file.
     **/
     public var pos:Position;
 
-    /**
-        Actual data of this JSON value.
-    **/
-    public var value:JsonValue;
+    public inline function new(value:JsonValue, pos:Position) {
+        this.value = value;
+        this.pos = pos;
+    }
 }
 
 /**
@@ -77,4 +82,10 @@ class JObjectField {
         Field value.
     **/
     public var value:Json;
+
+    public inline function new(name:String, namePos:Position, value:Json) {
+        this.name = name;
+        this.namePos = namePos;
+        this.value = value;
+    }
 }

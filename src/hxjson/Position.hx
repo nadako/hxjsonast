@@ -22,4 +22,10 @@ class Position {
         Ending position of the value, zero-based.
     **/
     public var max:Int;
+
+    public inline function new(file:String, min:Int, max:Int) {
+        this.file = file;
+        this.min = min;
+        this.max = max;
+    }
 }
