@@ -1,5 +1,5 @@
 {
     "haxe.displayConfigurations": [
-        ["-cp", "src", "tests.hxml", "-js", "test.js"]
+        ["-cp", "src", "tests.hxml", "-js", "bin/node/tests.js"]
     ]
 }

@@ -1,7 +1,7 @@
 {
     "version": "0.1.0",
     "command": "haxe",
-    "args": ["-cp", "src", "tests.hxml", "-js", "test.js", "-cmd", "node test.js"],
+    "args": ["-cp", "src", "tests.hxml", "-js", "bin/node/tests.js", "-cmd", "node bin/node/tests.js"],
     "problemMatcher": {
         "owner": "haxe",
         "pattern": {
