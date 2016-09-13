@@ -1,8 +1,25 @@
 package hxjson;
 
+/**
+    Position of a JSON value.
+
+    This is compatible with `haxe.macro.Expr.Position`
+    and can be used for `haxe.Context.makePosition`.
+**/
 @:structInit
 class Position {
+    /**
+        The name of a JSON file. 
+    **/
     public var file:String;
+
+    /**
+        Starting positon of the value, zero-based.
+    **/
     public var min:Int;
+    
+    /**
+        Ending position of the value, zero-based.
+    **/
     public var max:Int;
 }

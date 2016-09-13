@@ -1,6 +1,16 @@
 package hxjson;
 
+/**
+    Printer for the `Json` values.
+    Outputs a valid JSON string. Positions are ignored.
+**/
 class Printer {
+    /**
+        Output a JSON string for given `json` value.
+
+        If `space` is specified, the output will be pretty-printed using given
+        `space` value for indentation.
+    **/
     public static function print(json:Json, ?space:String):String {
         var printer = new Printer(space);
         printer.write(json);

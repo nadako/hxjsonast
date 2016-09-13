@@ -2,7 +2,17 @@ package hxjson;
 
 import hxjson.Json;
 
+/**
+    A parser for the JSON data.
+    Throws exceptions on invalid JSON.
+**/
 class Parser {
+    /**
+        Parse given `source` text into a `Json` value using `filename` for
+        positions.
+
+        If `source` contains invalid JSON an exception will be thrown.
+    **/
     public static inline function parse(source:String, filename:String):Json {
         return new Parser(source, filename).parseRec();
     }
