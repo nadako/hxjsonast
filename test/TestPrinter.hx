@@ -1,7 +1,7 @@
 import utest.Assert.*;
 import hxjson.Printer;
 import hxjson.Json;
-import hxjson.Position;
+import TestUtils.*;
 
 class TestPrinter {
     public function new() {}
@@ -23,20 +23,6 @@ class TestPrinter {
             mk(JNull),
             mk(JObject([]))
         ])), '[true,null,{}]');
-    }
-
-    static var nullPos:Position = {file: "", min: 0, max: 0}; // positions are unused in printer
-
-    static inline function mk(value:JsonValue):Json {
-        return {pos: nullPos, value: value};
-    }
-
-    static inline function f(name:String, value:JsonValue):JObjectField {
-        return {
-            name: name,
-            namePos: nullPos,
-            value: mk(value)
-        };
     }
 
     static inline function check(json:Json, result:String, ?space:String) {
