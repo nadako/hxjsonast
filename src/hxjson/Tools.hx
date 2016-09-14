@@ -26,7 +26,7 @@ class Tools {
             case JBool(bool):
                 bool;
             case JNumber(s):
-                return Std.parseFloat(s);
+                Std.parseFloat(s);
             case JObject(fields):
                 var result = {};
                 for (field in fields)
