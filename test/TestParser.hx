@@ -1,5 +1,5 @@
 import utest.Assert.*;
-import hxjson.*;
+import hxjsonast.*;
 
 class TestParser {
     public function new() {}
@@ -177,7 +177,7 @@ class TestParser {
     static function checkError(source:String, message:String, min:Int, max:Int, ?posInfos:haxe.PosInfos) {
         try {
             trace(Parser.parse(source, ""));
-        } catch (error:hxjson.Error) {
+        } catch (error:Error) {
             equals(message, error.message, posInfos);
             same(({file: "", min: min, max: max} : Position), error.pos, posInfos);
             return;

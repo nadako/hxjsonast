@@ -1,6 +1,6 @@
 import utest.Assert.*;
-import hxjson.Printer;
-import hxjson.Json;
+import hxjsonast.Printer;
+import hxjsonast.Json;
 import TestUtils.*;
 
 class TestPrinter {

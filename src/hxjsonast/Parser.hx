@@ -1,6 +1,6 @@
-package hxjson;
+package hxjsonast;
 
-import hxjson.Json;
+import hxjsonast.Json;
 
 /**
     A parser for the JSON data.

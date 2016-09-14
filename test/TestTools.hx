@@ -1,5 +1,5 @@
 import utest.Assert.*;
-import hxjson.Tools;
+import hxjsonast.Tools;
 import TestUtils.*;
 
 class TestTools {

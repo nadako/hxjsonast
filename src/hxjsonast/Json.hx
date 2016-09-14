@@ -1,4 +1,4 @@
-package hxjson;
+package hxjsonast;
 
 /**
     This class represents a JSON value along with its position in the JSON file.
@@ -63,7 +63,7 @@ enum JsonValue {
 
 /**
     JSON object field.
-    
+
     See `JObject` constructor of the `JsonValue` enum.
 **/
 @:structInit

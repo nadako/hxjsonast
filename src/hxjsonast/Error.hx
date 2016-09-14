@@ -1,4 +1,4 @@
-package hxjson;
+package hxjsonast;
 
 /**
     Error object containing message and position.

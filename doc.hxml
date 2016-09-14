@@ -6,4 +6,4 @@
 -xml bin/doc/js.xml
 
 --next
--cmd haxelib run dox -i bin/doc -o bin/doc -in "^hxjson*" --title "hxjson - API documentation" -D source-path https://github.com/nadako/hxjson/blob/master/src/ -D website "https://github.com/nadako/hxjson"
+-cmd haxelib run dox -i bin/doc -o bin/doc -in "^hxjsonast*" --title "hxjsonast - API documentation" -D source-path https://github.com/nadako/hxjsonast/blob/master/src/ -D website "https://github.com/nadako/hxjsonast"

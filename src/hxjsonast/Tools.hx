@@ -1,4 +1,4 @@
-package hxjson;
+package hxjsonast;
 
 /**
     Tools for working with `Json` values.

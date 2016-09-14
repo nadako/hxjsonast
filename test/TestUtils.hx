@@ -1,5 +1,5 @@
-import hxjson.Json;
-import hxjson.Position;
+import hxjsonast.Json;
+import hxjsonast.Position;
 
 class TestUtils {
     public static var nullPos:Position = {file: "", min: 0, max: 0}; // positions are unused in printer

@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/nadako/hxjson.svg?branch=master)](https://travis-ci.org/nadako/hxjson)
+[![Build Status](https://travis-ci.org/nadako/hxjsonast.svg?branch=master)](https://travis-ci.org/nadako/hxjsonast)
 
-# hxjson - typed position aware JSON parsing for Haxe
+# hxjsonast - typed position aware JSON parsing for Haxe
 
 This library contains a JSON parser that parses JSON (sic!) into a position-aware typed
 value objects. It also contains a printer for those objects, supporting pretty-printing.
@@ -17,12 +17,12 @@ adapted to work with custom data structures.
 Currently requires current development version of Haxe.
 
 ```
-haxelib git hxjson https://github.com/nadako/hxjson
+haxelib git hxjsonast https://github.com/nadako/hxjsonast
 ```
 
 ## Usage
 
-Generated API documentation is here: <https://nadako.github.io/hxjson/>,
+Generated API documentation is here: <https://nadako.github.io/hxjsonast/>,
 but a code snippet is worth a thousand words:
 ```haxe
 class Main {
@@ -31,7 +31,7 @@ class Main {
         var contents = '{"name": "Dan", "age": 29, "married": true}';
 
         // parsing is easy!
-        var json = hxjson.Parser.parse(contents, filename);
+        var json = hxjsonast.Parser.parse(contents, filename);
 
         // `pos` store the filename, start and end characters
         trace(json.pos); // {file: 'person.json', min: 0, max: 43}
@@ -48,10 +48,10 @@ class Main {
 
         // constructing Json is easy too, we can use both
         // the classic `new` operator or a new fancy @:structInit syntax
-        var myJson:hxjson.Json = {
+        var myJson:hxjsonast.Json = {
             pos: {file: "some.json", min: 0, max: 42},
             value: JArray([
-                new hxjson.Json(JString("hello"), new hxjson.Position("some.json", 3, 10)),
+                new hxjsonast.Json(JString("hello"), new hxjsonast.Position("some.json", 3, 10)),
                 {
                     pos: {file: "other.json", min: 11, max: 30},
                     value: JString("world")
@@ -60,11 +60,11 @@ class Main {
         };
 
         // printing is easy as well (you can also pretty-print by specifying the second argument)
-        var out = hxjson.Printer.print(myJson);
+        var out = hxjsonast.Printer.print(myJson);
         trace(out); // ["hello","world"]
 
         // there's a tool to convert Json values into "normal" objects and arrays
-        var value = hxjson.Tools.getValue(myJson);
+        var value = hxjsonast.Tools.getValue(myJson);
         trace(Std.is(value, Array)); // true
     }
 }

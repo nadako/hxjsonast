@@ -1,4 +1,4 @@
-package hxjson;
+package hxjsonast;
 
 /**
     Printer for the `Json` values.

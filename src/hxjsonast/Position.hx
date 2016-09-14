@@ -1,4 +1,4 @@
-package hxjson;
+package hxjsonast;
 
 /**
     Position of a JSON value.
@@ -9,7 +9,7 @@ package hxjson;
 @:structInit
 class Position {
     /**
-        The name of a JSON file. 
+        The name of a JSON file.
     **/
     public var file:String;
 
@@ -17,7 +17,7 @@ class Position {
         Starting positon of the value, zero-based.
     **/
     public var min:Int;
-    
+
     /**
         Ending position of the value, zero-based.
     **/
