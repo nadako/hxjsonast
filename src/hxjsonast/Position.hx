@@ -4,7 +4,7 @@ package hxjsonast;
     Position of a JSON value.
 
     This is compatible with `haxe.macro.Expr.Position`
-    and can be used for `haxe.Context.makePosition`.
+    and can be used for `haxe.macro.Context.makePosition`.
 **/
 @:structInit
 class Position {
