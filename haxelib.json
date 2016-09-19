@@ -1,11 +1,11 @@
 {
     "name": "hxjsonast",
     "license": "MIT",
-    "tags": [],
+    "tags": ["cross", "json", "parser"],
     "classPath": "src",
     "contributors": ["nadako"],
     "releasenote": "initial release",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "url": "https://github.com/nadako/hxjsonast/",
     "dependencies": {}
 }
