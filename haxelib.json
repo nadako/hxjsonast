@@ -1,5 +1,6 @@
 {
     "name": "hxjsonast",
+    "description": "Type-safe position-aware JSON parsing & printing",
     "license": "MIT",
     "tags": ["cross", "json", "parser"],
     "classPath": "src",
