@@ -10,20 +10,16 @@ This is useful for writing all kinds of JSON validation and processing software.
 The parsing and printing code comes from standard `haxe.format.JsonParser/JsonPrinter` classes,
 adapted to work with custom data structures.
 
-**Status**: ALPHA. Works, but not yet "officially" released and there's some minor stuff to change.
-
 ## Installation
 
-Currently requires current development version of Haxe.
-
 ```
-haxelib git hxjsonast https://github.com/nadako/hxjsonast
+haxelib install hxjsonast
 ```
 
 ## Usage
 
 Generated API documentation is here: <https://nadako.github.io/hxjsonast/>,
-but a code snippet is worth a thousand words:
+but a code snippet is worth a thousand words (compile with `-lib hxjsonast`):
 ```haxe
 import hxjsonast.*;
 
