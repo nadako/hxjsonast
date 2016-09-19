@@ -1,7 +1,10 @@
 #!/bin/bash
 set -e # exit with nonzero exit code if anything fails
 
-if [ -z "$GHP_BOT_TOKEN" ]; then
+if ! [ "$TRAVIS_HAXE_VERSION" == "development" ]; then
+    echo "Skipping pushing to GitHub pages - that is only done for Haxe development.";
+    exit 0;
+elif [ -z "$GHP_BOT_TOKEN" ]; then
     echo "Skipping pushing to GitHub pages - missing GHP_BOT_TOKEN (probably in a PR build).";
     exit 0;
 elif [ "$TRAVIS_BRANCH" != "master" ]; then
