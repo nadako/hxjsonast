@@ -26,7 +26,7 @@ class TestParser {
     public function test_number() {
         for (s in ["123", "1.5", "1e1", "1e-1", "1e+1", "1.5e1", "1.5e-1", "1.5e+1"]) {
             function c(s:String) {
-                inline function p(s, file) return mkPos(file, 0, s.length);
+                inline function p(s:String, file:String):Position return mkPos(file, 0, s.length);
                 check(s, mk(JNumber(s), p(s, file)));
             }
             c(s);
