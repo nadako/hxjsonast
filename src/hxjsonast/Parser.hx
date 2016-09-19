@@ -47,15 +47,11 @@ class Parser {
                             case '}'.code:
                                 if (field != null || comma == false)
                                     invalidChar();
-                                return {pos: mkPos(startPos, pos), value: JObject(fields)};
+                                return mk(mkPos(startPos, pos), JObject(fields));
                             case ':'.code:
                                 if (field == null)
                                     invalidChar();
-                                fields.push({
-                                    name: field,
-                                    namePos: fieldPos,
-                                    value: parseRec()
-                                });
+                                fields.push(new JObjectField(field, fieldPos, parseRec()));
                                 field = null;
                                 fieldPos = null;
                                 comma = true;
@@ -89,7 +85,7 @@ class Parser {
                             case ']'.code:
                                 if (comma == false)
                                     invalidChar();
-                                return {pos: mkPos(startPos, pos), value: JArray(values)};
+                                return mk(mkPos(startPos, pos), JArray(values));
                             case ','.code:
                                 if (comma)
                                     comma = false;
@@ -109,25 +105,25 @@ class Parser {
                         pos = save;
                         invalidChar();
                     }
-                    return {pos: mkPos(save - 1, pos), value: JBool(true)};
+                    return mk(mkPos(save - 1, pos), JBool(true));
                 case 'f'.code:
                     var save = pos;
                     if (nextChar() != 'a'.code || nextChar() != 'l'.code || nextChar() != 's'.code || nextChar() != 'e'.code) {
                         pos = save;
                         invalidChar();
                     }
-                    return {pos: mkPos(save - 1, pos), value: JBool(false)};
+                    return mk(mkPos(save - 1, pos), JBool(false));
                 case 'n'.code:
                     var save = pos;
                     if (nextChar() != 'u'.code || nextChar() != 'l'.code || nextChar() != 'l'.code) {
                         pos = save;
                         invalidChar();
                     }
-                    return {pos: mkPos(save - 1, pos), value: JNull};
+                    return mk(mkPos(save - 1, pos), JNull);
                 case '"'.code:
                     var save = pos;
                     var s = parseString();
-                    return {pos: mkPos(save - 1, pos), value: JString(s)};
+                    return mk(mkPos(save - 1, pos), JString(s));
                 case '0'.code, '1'.code,'2'.code,'3'.code,'4'.code,'5'.code,'6'.code,'7'.code,'8'.code,'9'.code,'-'.code:
                     return parseNumber(c);
                 default:
@@ -261,15 +257,19 @@ class Parser {
                 break;
         }
         var s = source.substr(start, pos - start);
-        return {pos: mkPos(start, pos), value: JNumber(s)};
+        return mk(mkPos(start, pos), JNumber(s));
     }
 
     inline function nextChar():Int {
         return StringTools.fastCodeAt(source, pos++);
     }
 
+    inline function mk(pos:Position, value:JsonValue):Json {
+        return new Json(value, pos);
+    }
+
     inline function mkPos(min:Int, max:Int):Position {
-        return {file: filename, min: min, max: max};
+        return new Position(filename, min, max);
     }
 
     function invalidChar() {

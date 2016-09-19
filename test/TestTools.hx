@@ -8,7 +8,7 @@ class TestTools {
     public function test_getValue() {
         same({
             hello: 11,
-            world: ([false, "hi", 1.5, null] : Array<Any>)
+            world: ([false, "hi", 1.5, null] : Array<#if (haxe_ver < 3.3) Dynamic #else Any #end>)
         }, Tools.getValue(mk(JObject([
             f('hello', JNumber("11")),
             f('world', JArray([

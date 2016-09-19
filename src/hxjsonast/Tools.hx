@@ -16,6 +16,8 @@ class Tools {
         `JArray` becomes `Array<Any>` with its elements recursively converted.
 
         `JObject` becomes a dynamic anonymous structure with its fields recursively converted.
+
+        NOTE: On Haxe 3.2, `Dynamic` is used instead of `Any`.
     **/
     public static function getValue(json:Json):Any {
         return switch (json.value) {
@@ -37,3 +39,8 @@ class Tools {
         }
     }
 }
+
+#if (haxe_ver < 3.3)
+// this is not exactly the same, but it's the best we can offer for 3.2.1
+private typedef Any = Dynamic;
+#end

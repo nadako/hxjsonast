@@ -1,54 +1,23 @@
 import utest.Assert.*;
 import hxjsonast.*;
+import hxjsonast.Json;
+import TestUtils.*;
 
 class TestParser {
     public function new() {}
 
     public function test_string() {
-        check('""', {
-            pos: {file: file, min: 0, max: 2},
-            value: JString("")
-        });
+        check('""', mk(JString(""), mkPos(file, 0, 2)));
 
-        check('"hello"', {
-            pos: {file: file, min: 0, max: 7},
-            value: JString("hello")
-        });
+        check('"hello"', mk(JString("hello"), mkPos(file, 0, 7)));
+        check('"\\\"hi\\\\"', mk(JString("\"hi\\"), mkPos(file, 0, 8)));
 
-        check('"\\\"hi\\\\"', {
-            pos: {file: file, min: 0, max: 8},
-            value: JString("\"hi\\")
-        });
-
-        check('"\\/"', {
-            pos: {file: file, min: 0, max: 4},
-            value: JString("/")
-        });
-
-        check('"\\b"', {
-            pos: {file: file, min: 0, max: 4},
-            value: JString(String.fromCharCode(8))
-        });
-
-        check('"\\f"', {
-            pos: {file: file, min: 0, max: 4},
-            value: JString(String.fromCharCode(12))
-        });
-
-        check('"\\n"', {
-            pos: {file: file, min: 0, max: 4},
-            value: JString("\n")
-        });
-
-        check('"\\t"', {
-            pos: {file: file, min: 0, max: 4},
-            value: JString("\t")
-        });
-
-        check('"\\u1234"', {
-            pos: {file: file, min: 0, max: 8},
-            value: JString("\u1234")
-        });
+        check('"\\/"', mk(JString("/"), mkPos(file, 0, 4)));
+        check('"\\b"', mk(JString(String.fromCharCode(8)), mkPos(file, 0, 4)));
+        check('"\\f"', mk(JString(String.fromCharCode(12)), mkPos(file, 0, 4)));
+        check('"\\n"', mk(JString("\n"), mkPos(file, 0, 4)));
+        check('"\\t"', mk(JString("\t"), mkPos(file, 0, 4)));
+        check('"\\u1234"', mk(JString("\u1234"), mkPos(file, 0, 8)));
 
         checkError('"adad', "Unclosed string", 0, 5);
         checkError('"\\m"', "Invalid escape sequence \\m", 1, 3);
@@ -57,8 +26,8 @@ class TestParser {
     public function test_number() {
         for (s in ["123", "1.5", "1e1", "1e-1", "1e+1", "1.5e1", "1.5e-1", "1.5e+1"]) {
             function c(s:String) {
-                inline function p(s:String, file:String):Position return {min: 0, max: s.length, file: file};
-                check(s, {pos: p(s, file), value: JNumber(s)});
+                inline function p(s, file) return mkPos(file, 0, s.length);
+                check(s, mk(JNumber(s), p(s, file)));
             }
             c(s);
             c('-$s');
@@ -74,18 +43,9 @@ class TestParser {
     }
 
     public function test_literals() {
-        check("true", {
-            pos: {file: file, min: 0, max: 4},
-            value: JBool(true)
-        });
-        check("false", {
-            pos: {file: file, min: 0, max: 5},
-            value: JBool(false)
-        });
-        check("null", {
-            pos: {file: file, min: 0, max: 4},
-            value: JNull
-        });
+        check("true", mk(JBool(true), mkPos(file, 0, 4)));
+        check("false", mk(JBool(false), mkPos(file, 0, 5)));
+        check("null", mk(JNull, mkPos(file, 0, 4)));
 
         checkError("a", "Invalid character: a", 0, 1);
         checkError("ta", "Invalid character: t", 0, 1);
@@ -103,32 +63,15 @@ class TestParser {
     }
 
     public function test_object() {
-        check("{}", {
-            pos: {file: file, min: 0, max: 2},
-            value: JObject([])
-        });
+        check("{}", mk(JObject([]), mkPos(file, 0, 2)));
 
-        check('{ "hello" : 123,\n "world": false }', {
-            pos: {file: file, min: 0, max: 34},
-            value: JObject([
-                {
-                    name: "hello",
-                    namePos: {file: file, min: 2, max: 9},
-                    value: {
-                        pos: {file: file, min: 12, max: 15},
-                        value: JNumber("123")
-                    }
-                },
-                {
-                    name: "world",
-                    namePos: {file: file, min: 18, max: 25},
-                    value: {
-                        pos: {file: file, min: 27, max: 32},
-                        value: JBool(false)
-                    }
-                }
-            ])
-        });
+        check('{ "hello" : 123,\n "world": false }', mk(
+            JObject([
+                new JObjectField("hello", mkPos(file, 2, 9), mk(JNumber("123"), mkPos(file, 12, 15))),
+                new JObjectField("world", mkPos(file, 18, 25), mk(JBool(false), mkPos(file, 27, 32))),
+            ]),
+            mkPos(file, 0, 34)
+        ));
 
         checkError('{"a": 1, "a": 1}', "Duplicate field name \"a\"", 9, 12);
 
@@ -139,28 +82,16 @@ class TestParser {
     }
 
     public function test_array() {
-        check("[]", {
-            pos: {file: file, min: 0, max: 2},
-            value: JArray([])
-        });
+        check("[]", mk(JArray([]), mkPos(file, 0, 2)));
 
-        check(" [ 1, false\n, \"hi\" ]", {
-            pos: {file: file, min: 1, max: 20},
-            value: JArray([
-                {
-                    pos: {file: file, min: 3, max: 4},
-                    value: JNumber("1")
-                },
-                {
-                    pos: {file: file, min: 6, max: 11},
-                    value: JBool(false)
-                },
-                {
-                    pos: {file: file, min: 14, max: 18},
-                    value: JString("hi")
-                },
-            ])
-        });
+        check(" [ 1, false\n, \"hi\" ]", mk(
+            JArray([
+                mk(JNumber("1"), mkPos(file, 3, 4)),
+                mk(JBool(false), mkPos(file, 6, 11)),
+                mk(JString("hi"), mkPos(file, 14, 18)),
+            ]),
+            mkPos(file, 1, 20)
+        ));
 
         checkError('[1,]', "Invalid character: ]", 3, 4);
         checkError('[,', "Invalid character: ,", 1, 2);
@@ -179,7 +110,7 @@ class TestParser {
             trace(Parser.parse(source, ""));
         } catch (error:Error) {
             equals(message, error.message, posInfos);
-            same(({file: "", min: min, max: max} : Position), error.pos, posInfos);
+            same(new Position("", min, max), error.pos, posInfos);
             return;
         }
         fail("Parse Error is not raised", posInfos);

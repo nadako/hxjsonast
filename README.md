@@ -25,6 +25,8 @@ haxelib git hxjsonast https://github.com/nadako/hxjsonast
 Generated API documentation is here: <https://nadako.github.io/hxjsonast/>,
 but a code snippet is worth a thousand words:
 ```haxe
+import hxjsonast.*;
+
 class Main {
     static function main() {
         var filename = 'person.json';
@@ -46,12 +48,23 @@ class Main {
             case JObject(fields): trace('object!');
         }
 
-        // constructing Json is easy too, we can use both
-        // the classic `new` operator or a new fancy @:structInit syntax
-        var myJson:hxjsonast.Json = {
+        // constructing Json is easy too, we just pass position and value to its constructor
+        var myJson = new Json(
+            JArray([
+                new Json(JString("hello"), new Position("some.json", 3, 10)),
+                new Json(JString("world"), new Position("other.json", 11, 30)),
+            ]),
+            new Position("some.json", 0, 42)
+        );
+
+        // with Haxe 3.3, we can also use new fancy @:structInit syntax instead of classic `new` operator, e.g.
+        var myJson:Json = {
             pos: {file: "some.json", min: 0, max: 42},
             value: JArray([
-                new hxjsonast.Json(JString("hello"), new hxjsonast.Position("some.json", 3, 10)),
+                {
+                    pos: {file: "some.json", min: 3, max: 10},
+                    value: JString("hello"),
+                },
                 {
                     pos: {file: "other.json", min: 11, max: 30},
                     value: JString("world")
