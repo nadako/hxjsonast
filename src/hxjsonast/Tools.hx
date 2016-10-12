@@ -1,5 +1,7 @@
 package hxjsonast;
 
+import hxjsonast.Json;
+
 /**
     Tools for working with `Json` values.
 
@@ -36,6 +38,25 @@ class Tools {
                 result;
             case JArray(values):
                 [for (json in values) getValue(json)];
+        }
+    }
+
+    /**
+        Return field with given `name` from a given `json` object.
+
+        If `json` is not an object, an exception is thrown.
+        If `json` doesn't contain a field with given `name`, null is returned.
+    **/
+    public static function getField(json:Json, name:String):Null<JObjectField> {
+        return switch (json.value) {
+            case JObject(fields):
+                for (field in fields) {
+                    if (field.name == name)
+                        return field;
+                }
+                return null;
+            default:
+                throw new Error("Not an object", json.pos);
         }
     }
 }
