@@ -18,6 +18,7 @@ install:
   - haxelib run travix install
 
 script:
+  - haxelib run travix lua
   - haxelib run travix interp
   - haxelib run travix neko
   # - haxelib run travix js
@@ -27,7 +28,6 @@ script:
   - haxelib run travix java
   - haxelib run travix cs
   - haxelib run travix cpp
-  - haxelib run travix lua
   - haxelib run travix flash -D exit
   - haxe doc.hxml
   - bash doc-deploy.sh
