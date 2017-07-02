@@ -9,7 +9,7 @@ os:
 
 haxe:
   - 3.2.1
-  - 3.4.0
+  - 3.4.2
   - development
 
 install:
@@ -18,7 +18,7 @@ install:
   - haxelib run travix install
 
 script:
-  - haxelib run travix lua
+  - if ! [ "$TRAVIS_HAXE_VERSION" == "3.2.1" ]; then haxelib run travix lua; fi
   - haxelib run travix interp
   - haxelib run travix neko
   # - haxelib run travix js
