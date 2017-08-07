@@ -1,6 +1,7 @@
 ## next version
 
 Add `hxjsonast.Tools.getField` method for easy field retrieving.
+Fix parsing invalid object syntax: `{"""a": 1}`
 
 ## 1.0.1
 
