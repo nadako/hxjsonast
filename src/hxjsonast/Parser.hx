@@ -61,7 +61,7 @@ class Parser {
                                 else
                                     invalidChar();
                             case '"'.code:
-                                if (comma)
+                                if (field != null || comma)
                                     invalidChar();
                                 var fieldStartPos = pos - 1;
                                 field = parseString();

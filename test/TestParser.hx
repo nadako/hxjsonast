@@ -21,6 +21,7 @@ class TestParser {
 
         checkError('"adad', "Unclosed string", 0, 5);
         checkError('"\\m"', "Invalid escape sequence \\m", 1, 3);
+        checkError('{"""a": 1}', "Invalid character: \"", 3, 4);
     }
 
     public function test_number() {
