@@ -11,6 +11,7 @@ class TestParser {
 
         check('"hello"', mk(JString("hello"), mkPos(file, 0, 7)));
         check('"\\\"hi\\\\"', mk(JString("\"hi\\"), mkPos(file, 0, 8)));
+        check('{} ', mk(JObject([]), mkPos(file, 0, 2)));
 
         check('"\\/"', mk(JString("/"), mkPos(file, 0, 4)));
         check('"\\b"', mk(JString(String.fromCharCode(8)), mkPos(file, 0, 4)));
@@ -22,6 +23,7 @@ class TestParser {
         checkError('"adad', "Unclosed string", 0, 5);
         checkError('"\\m"', "Invalid escape sequence \\m", 1, 3);
         checkError('{"""a": 1}', "Invalid character: \"", 3, 4);
+        checkError('{}a', "Invalid character: a", 2, 3);
     }
 
     public function test_number() {

@@ -14,7 +14,7 @@ class Parser {
         If `source` contains invalid JSON an exception will be thrown.
     **/
     public static inline function parse(source:String, filename:String):Json {
-        return new Parser(source, filename).parseRec();
+        return new Parser(source, filename).doParse();
     }
 
     var source:String;
@@ -25,6 +25,20 @@ class Parser {
         this.source = source;
         this.filename = filename;
         this.pos = 0;
+    }
+
+    function doParse():Json {
+        var result = parseRec();
+        var c;
+        while (!StringTools.isEof(c = nextChar())) {
+            switch(c) {
+                case ' '.code, '\r'.code, '\n'.code, '\t'.code:
+                    // allow trailing whitespace
+                default:
+                    invalidChar();
+            }
+        }
+        return result;
     }
 
     function parseRec():Json {
