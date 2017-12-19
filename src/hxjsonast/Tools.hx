@@ -59,6 +59,8 @@ class Tools {
                 throw new Error("Not an object", json.pos);
         }
     }
+
+    public static macro function json(expr) return hxjsonast.JsonMacro.build(expr);
 }
 
 #if (haxe_ver < 3.3)
