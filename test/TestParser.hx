@@ -43,6 +43,7 @@ class TestParser {
         checkError("1-", "Invalid number: 1-", 0, 2);
         checkError(" 00", "Invalid number: 00", 1, 3);
         checkError("1.a", "Invalid number: 1.a", 0, 3);
+        checkError("1e1.5", "Invalid number: 1e1.", 0, 4);
     }
 
     public function test_literals() {
