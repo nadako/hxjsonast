@@ -12,6 +12,10 @@ haxe:
   - 3.4.2
   - development
 
+matrix:
+  allow_failures:
+  - haxe: 3.2.1
+
 install:
   - haxelib install dox
   - haxelib install travix
