@@ -248,7 +248,7 @@ class Parser {
                     digit = true;
                     zero = false;
                 case '.'.code:
-                    if (minus || point)
+                    if (minus || point || e)
                         invalidNumber(start);
                     digit = false;
                     point = true;
