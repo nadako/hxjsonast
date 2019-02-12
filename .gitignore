@@ -3,3 +3,4 @@
 /bin/js/*
 !/bin/js/index.html
 /release.zip
+/.unittest
