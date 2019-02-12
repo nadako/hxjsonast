@@ -3,9 +3,7 @@ import hxjsonast.Printer;
 import hxjsonast.Json;
 import TestUtils.*;
 
-class TestPrinter {
-    public function new() {}
-
+class TestPrinter extends utest.Test {
     public function test_print() {
         check(mk(JNull), "null");
         check(mk(JBool(true)), "true");
