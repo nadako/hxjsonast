@@ -2,7 +2,7 @@ import utest.Assert.*;
 import hxjsonast.Tools;
 import TestUtils.*;
 
-class TestTools extends utest.Test {
+class TestTools extends TestBase {
     public function test_getValue() {
         same({
             hello: 11,

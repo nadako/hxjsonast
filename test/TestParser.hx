@@ -3,7 +3,7 @@ import hxjsonast.*;
 import hxjsonast.Json;
 import TestUtils.*;
 
-class TestParser #if !macro extends utest.Test #end {
+class TestParser extends TestBase {
     public function test_string() {
         check('""', mk(JString(""), mkPos(file, 0, 2)));
 
