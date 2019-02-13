@@ -174,7 +174,7 @@ class Parser {
                     case 'u'.code:
                         var uc = Std.parseInt("0x" + source.substr(pos, 4));
                         pos += 4;
-                        #if (neko || php || cpp || lua)
+                        #if (neko || (!haxe4 && (php || cpp || lua) || (cpp && !hxcpp_smart_strings)))
                         if (uc <= 0x7F)
                             buf.addChar(uc);
                         else if (uc <= 0x7FF) {
