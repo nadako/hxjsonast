@@ -198,7 +198,7 @@ class Parser {
                 }
                 start = pos;
             }
-            #if (neko || php || cpp)
+            #if (neko || (!haxe4 && (php || cpp)))
             // ensure utf8 chars are not cut
             else if (c >= 0x80) {
                 pos++;
