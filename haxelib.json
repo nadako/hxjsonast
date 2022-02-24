@@ -5,8 +5,8 @@
     "tags": ["cross", "json", "parser"],
     "classPath": "src",
     "contributors": ["nadako"],
-    "releasenote": "initial release",
-    "version": "1.0.1",
+    "releasenote": "haxe 4 update",
+    "version": "1.1.0",
     "url": "https://github.com/nadako/hxjsonast/",
     "dependencies": {}
 }
