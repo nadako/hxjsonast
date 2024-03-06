@@ -17,6 +17,8 @@ class Parser {
         return new Parser(source, filename).doParse();
     }
 
+    var allowDuplicateKeys:Bool=false;
+
     var source:String;
     var filename:String;
     var pos:Int;
@@ -80,7 +82,7 @@ class Parser {
                                 var fieldStartPos = pos - 1;
                                 field = parseString();
                                 fieldPos = mkPos(fieldStartPos, pos);
-                                if (names.exists(field))
+                                if (names.exists(field)  && !allowDuplicateKeys)
                                     throw new Error('Duplicate field name "$field"', fieldPos);
                                 else
                                     names.set(field, true);
